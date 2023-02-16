@@ -43,7 +43,12 @@ class My2048 {
 
     // #region Methods
 
-    FillAnEmptyCellWithRandomValue() //this method fill an empty cell(find randomlly) and fill it with random value
+
+    /**
+     * this method fill an empty cell(find randomlly) and fill it with random value
+
+     */
+    FillAnEmptyCellWithRandomValue()
     {
         var emptyIndex = this.FindAnEmptyCellIndex();
 
@@ -57,12 +62,20 @@ class My2048 {
         this.RemoveFromEmptyCells(emptyIndex);
     }
 
-    RemoveFromEmptyCells(index) //this method remove passed index from emptyCells array
+    /**
+     * this method remove passed index from emptyCells array
+     *
+     * @param {Int32} index the coordinate to start search.
+     */
+    RemoveFromEmptyCells(index) 
     {
         this.emptyCells.splice(index, 1);
     }
 
-    FindAnEmptyCellIndex() //this method return an index of empty cell (returned index is based on emptyCells array)
+    /**
+     * this method return an index of empty cell (returned index is based on emptyCells array)
+     */
+    FindAnEmptyCellIndex() 
     {
         if (this.emptyCells.length <= 0)
             return -1;
@@ -72,7 +85,10 @@ class My2048 {
         return randomCellNumber;
     }
 
-    ComputeEmptyCells() //this method is for find empty cells and fill emptyCells property
+    /**
+     * this method is for find empty cells and fill emptyCells property
+     */
+    ComputeEmptyCells() 
     {
         var i;
         var j;
@@ -84,7 +100,10 @@ class My2048 {
         }
     }
 
-    InitializeRandom() //this methis is for fill random cells at first
+    /**
+     * this methis is for fill random cells at first
+     */
+    InitializeRandom()
     {
         var i;
         for (i = 0; i < this.initializeRandomCount; i++) {
@@ -92,6 +111,9 @@ class My2048 {
         }
     }
 
+    /**
+     * get some log 
+     */
     get info() //for log
     {
         console.log('rows : ' + this.rows
@@ -100,6 +122,9 @@ class My2048 {
             + '   / initial random count : ' + this.initializeRandomCount);
     }
 
+    /**
+     * root method for move 
+     */
     Move(direction) {
         switch (direction) {
             case 'R':
@@ -119,6 +144,11 @@ class My2048 {
         console.table(this.mainArr);
     }
 
+    /**
+     * this methis is for swap two element in mainArr
+     * @param {Array} source the coordinate of source .
+     * @param {Array} destination the coordinate of destionation.
+     */
     swap(source, destination) {
         var temp = this.mainArr[source[0]][source[1]];
         this.mainArr[source[0]][source[1]] = this.mainArr[destination[0]][destination[1]];
@@ -126,16 +156,13 @@ class My2048 {
     }
 
     /**
-     * find first none zero value in a direction
+     * find first none zero value in given direction
      *
-     * @param {Array} source the coordinate to start search.
+     * @param {Array} source the coordinate to start search from it.
      * @param {string} direction the direction to search.
      * @return {Array} if find any none zero return it else return [-1,-1].
      */
-    FindFirstNoneZero(source, direction) { //this method returns first none 0 value index (based on direction arg)
-        //if not found any none 0 value return [-1,-1]
-        //source must be a zero value
-
+    FindFirstNoneZero(source, direction) { 
         var row = source[0];
         var col = source[1];;//start after zero vlaue that passed to method
 
@@ -196,11 +223,17 @@ class My2048 {
 
     // #region Move Right
 
+    /**
+     * method for move right
+     */
     MoveRight() {
         this.ShiftRight();
         this.CollapseRight();
     }
 
+    /**
+     * method to shift right the mainArr
+     */
     ShiftRight() {
         var row, col;
 
@@ -242,6 +275,10 @@ class My2048 {
 
     }
 
+
+    /**
+     * the method that after shift,pull all 0 values to end of left
+     */
     CollapseRight() {
         var row, col;
 
@@ -264,11 +301,17 @@ class My2048 {
 
     // #region Move Left
 
+    /**
+     * method for move left
+     */
     MoveLeft() {
         this.ShiftLeft();
         this.CollapseLeft();
     }
 
+    /**
+     * method to shift left the mainArr
+     */
     ShiftLeft() {
         var row, col;
 
@@ -310,6 +353,9 @@ class My2048 {
 
     }
 
+    /**
+     * the method that after shift,pull all 0 values to end of right
+     */
     CollapseLeft() {
         var row, col;
         for (row = 0; row < this.rows; row++) {
@@ -331,11 +377,17 @@ class My2048 {
 
     // #region Move Up
 
+    /**
+     * method for move Up
+     */
     MoveUp() {
         this.ShiftUp();
         this.CollapseUp();
     }
 
+    /**
+     * method to shift up the mainArr
+     */
     ShiftUp() {
         var col, row;
 
@@ -375,6 +427,9 @@ class My2048 {
         }
     }
 
+    /**
+     * the method that after shift,pull all 0 values to end of down
+     */
     CollapseUp() {
         var col, row;
         for (col = 0; col < this.cols; col++) {
@@ -396,11 +451,17 @@ class My2048 {
 
     // #region Move Down
 
+    /**
+     * method for move Down
+     */
     MoveDown() {
         this.ShiftDown();
         this.CollapseDown();
     }
 
+    /**
+     * method to shift down the mainArr
+     */
     ShiftDown() {
         var col, row;
 
@@ -440,6 +501,9 @@ class My2048 {
         }
     }
 
+    /**
+     * the method that after shift,pull all 0 values to end of up
+     */
     CollapseDown() {
         var col, row;
         for (col = 0; col < this.cols; col++) {
@@ -459,7 +523,9 @@ class My2048 {
 
     // #endregion
 
-
+    /**
+     * the method is for set mainArr to test!
+     */
     CustomInitial() {
         this.mainArr =
             [
