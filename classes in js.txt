@@ -1,0 +1,71 @@
+-> Class Definition
+
+class Rectangle {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+--------------------
+
+-> Method in class
+
+class test
+{
+  test1(){
+    	return 'from test1';
+  }
+}
+  
+ var t = new test();
+console.log(t.test1());
+--------------------
+
+-> inheritance 
+
+class BaseClass {
+  msg = "hello world";
+  basePublicMethod() {
+    return this.msg;
+  }
+}
+
+class SubClass extends BaseClass {
+  subPublicMethod() {
+    return super.basePublicMethod();
+  }
+}
+--------------------
+
+-> getter and setter in class
+class ClassWithGetSet {
+  #msg = "hello world";
+  get msg() {
+    return this.#msg;
+  }
+  set msg(x) {
+    this.#msg = `hello ${x}`;
+  }
+}
+
+const instance = new ClassWithGetSet();
+console.log(instance.msg); // "hello world"
+
+instance.msg = "cake";
+console.log(instance.msg); // "hello cake"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
