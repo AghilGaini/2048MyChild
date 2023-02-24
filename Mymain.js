@@ -72,15 +72,14 @@ class Utils {
 class My2048 {
 
     #mainArr; //for store main array info
-    #undoArr; //for store moves to undo
     #emptyCells; //this store empty cells(0) indexes
     #rows; //rows of main array
     #cols; //cols of main array 
     #initializeValue; //initialize first value when object created
     #initializeRandomCount; //initialize first count for generate random number
     #score; //store score
-    #hasMoved;
-    #undoScores;
+    #hasMoved; //if in each move has any change this would be true else false
+    #undoJson;//store all undo info as a json array 
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
@@ -91,8 +90,7 @@ class My2048 {
         this.initializeRandomCount = initializeRandomCount;
         this.mainArr = new Array(this.rows).fill(initializeValue).map(() => new Array(this.cols).fill(initializeValue))
         this.emptyCells = [];
-        this.undoArr = []
-        this.undoScores = [];
+        this.undoJson = [];
 
         this.ComputeEmptyCells();
         this.InitializeRandom();
@@ -200,12 +198,14 @@ class My2048 {
             //save into undoArr in this way for save it without references!
             //it should be better !
             //ToDo
-            this.undoArr.unshift(JSON.parse(JSON.stringify(this.mainArr)));
-            this.undoScores.unshift(this.score);
 
-            if (this.undoArr.length >= 6 || this.undoScores.length >= 6) {
-                this.undoArr.pop();
-                this.undoScores.pop();
+            var entity = {};
+            entity.mainArr = this.mainArr;
+            entity.score = this.score;
+            this.undoJson.unshift(JSON.stringify(entity));
+
+            if (this.undoJson.length >= 6) {
+                this.undoJson.pop();
             }
         }
 
