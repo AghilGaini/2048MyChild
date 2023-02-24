@@ -1,4 +1,36 @@
 
+document.addEventListener('keydown', (event) => {
+    //var name = event.key;
+    //var code = event.code;
+    var charCode = event.keyCode;
+    //alert(`Key pressed ${name} \r\n Key code value: ${code} \r\n char code  : ${charCode}`);
+
+    if (charCode == Keys.W || charCode == Keys.UpArrow) {
+        My2048Instance.Move('U');
+    }
+    else if (charCode == Keys.S || charCode == Keys.DownArrow) {
+        My2048Instance.Move('D');
+    }
+    else if (charCode == Keys.A || charCode == Keys.LeftArrow) {
+        My2048Instance.Move('L');
+    }
+    else if (charCode == Keys.D || charCode == Keys.RightArrow) {
+        My2048Instance.Move('R');
+    }
+
+}, false);
+
+const Keys = {
+    'UpArrow': 38,
+    'W':87,
+    'DownArrow': 40,
+    'S': 83,
+    'LeftArrow': 37,
+    'A':65,
+    'RightArrow': 39,
+    'D':68
+}
+
 class Utils {
 
     static GenerateRandom() {
@@ -542,9 +574,8 @@ const count = 4;
 const initializeValue = 0;
 const initializeRandomCount = 4;
 
-
 const My2048Instance = new My2048(count, initializeValue, initializeRandomCount);
-
-// console.table(My2048Instance.mainArr);
+My2048Instance.CustomInitial();
+console.table(My2048Instance.mainArr);
 
 
