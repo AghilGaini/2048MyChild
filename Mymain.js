@@ -78,9 +78,11 @@ class My2048 {
     #initializeValue; //initialize first value when object created
     #initializeRandomCount; //initialize first count for generate random number
     #score; //store score
+    #hasMoved;
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
+        this.hasMoved = false;
         this.rows = count;
         this.cols = count;
         this.initializeValue = initializeValue;
@@ -187,6 +189,12 @@ class My2048 {
                 break;
         }
 
+        if (this.hasMoved == true) {
+            this.ComputeEmptyCells();
+            this.FillAnEmptyCellWithRandomValue();
+        }
+
+        this.hasMoved = false;
         this.Show();
     }
 
@@ -330,6 +338,7 @@ class My2048 {
                 }
 
                 if (res.success == true) {
+                    this.hasMoved = true;
                     this.IncreaseScore(this.mainArr[res.source[0]][res.source[1]] * 2);
                     this.mainArr[res.source[0]][res.source[1]] *= 2;
                     this.mainArr[res.destination[0]][res.destination[1]] = 0;
@@ -352,6 +361,7 @@ class My2048 {
                     var findedNoneZero = this.FindFirstNoneZero([row, col], 'R');
                     if (!Utils.CompareTwoArraya(findedNoneZero, [-1, -1])) { //in this case founded at lease a none 0 value
                         this.swap([row, col], findedNoneZero);
+                        this.hasMoved = true;
                     }
                     else { //in this case all ot elements is 0! so got to next row !
                         col = 0;
@@ -408,6 +418,7 @@ class My2048 {
                 }
 
                 if (res.success == true) {
+                    this.hasMoved = true;
                     this.IncreaseScore(this.mainArr[res.source[0]][res.source[1]] * 2);
                     this.mainArr[res.source[0]][res.source[1]] *= 2;
                     this.mainArr[res.destination[0]][res.destination[1]] = 0;
@@ -429,6 +440,7 @@ class My2048 {
                     var findedNoneZero = this.FindFirstNoneZero([row, col], 'L');
                     if (!Utils.CompareTwoArraya(findedNoneZero, [-1, -1])) { //in this case founded at lease a none 0 value
                         this.swap([row, col], findedNoneZero);
+                        this.hasMoved = true;
                     }
                     else { //in this case all ot elements is 0! so got to next row !
                         col = this.cols;
@@ -485,6 +497,7 @@ class My2048 {
                 }
 
                 if (res.success == true) {
+                    this.hasMoved = true;
                     this.IncreaseScore(this.mainArr[res.source[0]][res.source[1]] * 2);
                     this.mainArr[res.source[0]][res.source[1]] *= 2;
                     this.mainArr[res.destination[0]][res.destination[1]] = 0;
@@ -504,6 +517,7 @@ class My2048 {
                     var findedNoneZero = this.FindFirstNoneZero([row, col], 'U');
                     if (!Utils.CompareTwoArraya(findedNoneZero, [-1, -1])) { //in this case founded at lease a none 0 value
                         this.swap([row, col], findedNoneZero);
+                        this.hasMoved = true;
                     }
                     else { //in this case all ot elements is 0! so got to next row !
                         row = this.rows;
@@ -560,6 +574,7 @@ class My2048 {
                 }
 
                 if (res.success == true) {
+                    this.hasMoved = true;
                     this.IncreaseScore(this.mainArr[res.source[0]][res.source[1]] * 2);
                     this.mainArr[res.source[0]][res.source[1]] *= 2;
                     this.mainArr[res.destination[0]][res.destination[1]] = 0;
@@ -579,6 +594,7 @@ class My2048 {
                     var findedNoneZero = this.FindFirstNoneZero([row, col], 'D');
                     if (!Utils.CompareTwoArraya(findedNoneZero, [-1, -1])) { //in this case founded at lease a none 0 value
                         this.swap([row, col], findedNoneZero);
+                        this.hasMoved = true;
                     }
                     else { //in this case all ot elements is 0! so got to next row !
                         row = 0;
