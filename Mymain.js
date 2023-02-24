@@ -1,4 +1,7 @@
 
+/**
+     * listener for when key down
+*/
 document.addEventListener('keydown', (event) => {
     //var name = event.key;
     //var code = event.code;
@@ -20,6 +23,9 @@ document.addEventListener('keydown', (event) => {
 
 }, false);
 
+/**
+    * this hold the key codes
+*/
 const Keys = {
     'UpArrow': 38,
     'W':87,
@@ -33,14 +39,25 @@ const Keys = {
 
 class Utils {
 
-    static GenerateRandom() {
+    /**
+         * generate random 2 or 4
+    */
+    static GenerateRandom2or4() {
         return Math.random() < 0.3 ? 4 : 2;
     }
 
+
+    /**
+         * generate random number between 0 and max 
+    */
     static GenerateRandomWithMax(max) {
         return Math.floor(Math.random() * max);
     }
 
+
+    /**
+         * compare two array
+    */
     static CompareTwoArraya(a, b) {
 
         if (a.length === b.length &&
@@ -88,7 +105,7 @@ class My2048 {
             return; //ToDo
 
         var emptyValues = this.emptyCells[emptyIndex];
-        var randomNumber = Utils.GenerateRandom();
+        var randomNumber = Utils.GenerateRandom2or4();
 
         this.mainArr[emptyValues[0]][emptyValues[1]] = randomNumber;
         this.RemoveFromEmptyCells(emptyIndex);
