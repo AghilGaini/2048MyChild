@@ -20,6 +20,10 @@ document.addEventListener('keydown', (event) => {
     else if (charCode == Keys.D || charCode == Keys.RightArrow) {
         My2048Instance.Move('R');
     }
+    else if (charCode == Keys.U) {
+        My2048Instance.Undo();
+        My2048Instance.Show();
+    }
 
 }, false);
 
@@ -28,13 +32,14 @@ document.addEventListener('keydown', (event) => {
 */
 const Keys = {
     'UpArrow': 38,
-    'W': 87,
+    'W': 87, //up
     'DownArrow': 40,
-    'S': 83,
+    'S': 83, //down
     'LeftArrow': 37,
-    'A': 65,
+    'A': 65, //left
     'RightArrow': 39,
-    'D': 68
+    'D': 68, //right
+    'U': 85 //U char for undo
 }
 
 class Utils {
@@ -176,6 +181,13 @@ class My2048 {
      * root method for move 
      */
     Move(direction) {
+
+        var entity = {};
+        entity.mainArr = this.mainArr;
+        entity.score = this.score;
+
+        entity = JSON.stringify(entity);
+
         switch (direction) {
             case 'R':
                 this.MoveRight();
@@ -195,14 +207,7 @@ class My2048 {
             this.ComputeEmptyCells();
             this.FillAnEmptyCellWithRandomValue();
 
-            //save into undoArr in this way for save it without references!
-            //it should be better !
-            //ToDo
-
-            var entity = {};
-            entity.mainArr = this.mainArr;
-            entity.score = this.score;
-            this.undoJson.unshift(JSON.stringify(entity));
+            this.undoJson.unshift(entity);
 
             if (this.undoJson.length >= 6) {
                 this.undoJson.pop();
@@ -304,6 +309,15 @@ class My2048 {
      */
     DecreaseScore(point) {
         this.score -= point;
+    }
+
+    Undo() {
+        if (this.undoJson.length <= 0)
+            return;
+
+        var info = JSON.parse(this.undoJson.shift());
+        this.mainArr = info.mainArr;
+        this.score = info.score;
     }
 
     // #endregion
