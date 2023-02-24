@@ -80,6 +80,7 @@ class My2048 {
     #initializeRandomCount; //initialize first count for generate random number
     #score; //store score
     #hasMoved;
+    #undoScores;
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
@@ -91,6 +92,7 @@ class My2048 {
         this.mainArr = new Array(this.rows).fill(initializeValue).map(() => new Array(this.cols).fill(initializeValue))
         this.emptyCells = [];
         this.undoArr = []
+        this.undoScores = [];
 
         this.ComputeEmptyCells();
         this.InitializeRandom();
@@ -199,8 +201,11 @@ class My2048 {
             //it should be better !
             //ToDo
             this.undoArr.unshift(JSON.parse(JSON.stringify(this.mainArr)));
-            if (this.undoArr.length >= 6) {
+            this.undoScores.unshift(this.score);
+
+            if (this.undoArr.length >= 6 || this.undoScores.length >= 6) {
                 this.undoArr.pop();
+                this.undoScores.pop();
             }
         }
 
