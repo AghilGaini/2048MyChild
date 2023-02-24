@@ -28,13 +28,13 @@ document.addEventListener('keydown', (event) => {
 */
 const Keys = {
     'UpArrow': 38,
-    'W':87,
+    'W': 87,
     'DownArrow': 40,
     'S': 83,
     'LeftArrow': 37,
-    'A':65,
+    'A': 65,
     'RightArrow': 39,
-    'D':68
+    'D': 68
 }
 
 class Utils {
@@ -77,8 +77,10 @@ class My2048 {
     #cols; //cols of main array 
     #initializeValue; //initialize first value when object created
     #initializeRandomCount; //initialize first count for generate random number
+    #score; //store score
 
     constructor(count, initializeValue, initializeRandomCount) {
+        this.score = 0;
         this.rows = count;
         this.cols = count;
         this.initializeValue = initializeValue;
@@ -97,8 +99,7 @@ class My2048 {
      * this method fill an empty cell(find randomlly) and fill it with random value
 
      */
-    FillAnEmptyCellWithRandomValue()
-    {
+    FillAnEmptyCellWithRandomValue() {
         var emptyIndex = this.FindAnEmptyCellIndex();
 
         if (emptyIndex == -1)
@@ -116,16 +117,14 @@ class My2048 {
      *
      * @param {Int32} index the coordinate to start search.
      */
-    RemoveFromEmptyCells(index) 
-    {
+    RemoveFromEmptyCells(index) {
         this.emptyCells.splice(index, 1);
     }
 
     /**
      * this method return an index of empty cell (returned index is based on emptyCells array)
      */
-    FindAnEmptyCellIndex() 
-    {
+    FindAnEmptyCellIndex() {
         if (this.emptyCells.length <= 0)
             return -1;
 
@@ -137,8 +136,7 @@ class My2048 {
     /**
      * this method is for find empty cells and fill emptyCells property
      */
-    ComputeEmptyCells() 
-    {
+    ComputeEmptyCells() {
         var i;
         var j;
         for (i = 0; i < this.rows; i++) {
@@ -152,8 +150,7 @@ class My2048 {
     /**
      * this methis is for fill random cells at first
      */
-    InitializeRandom()
-    {
+    InitializeRandom() {
         var i;
         for (i = 0; i < this.initializeRandomCount; i++) {
             this.FillAnEmptyCellWithRandomValue();
@@ -190,7 +187,7 @@ class My2048 {
                 break;
         }
 
-        console.table(this.mainArr);
+        this.Show();
     }
 
     /**
@@ -211,7 +208,7 @@ class My2048 {
      * @param {string} direction the direction to search.
      * @return {Array} if find any none zero return it else return [-1,-1].
      */
-    FindFirstNoneZero(source, direction) { 
+    FindFirstNoneZero(source, direction) {
         var row = source[0];
         var col = source[1];;//start after zero vlaue that passed to method
 
@@ -268,6 +265,24 @@ class My2048 {
 
     }
 
+    /**
+     * increase score
+     *
+     * @param {Int32} point value to increase.
+     */
+    IncreaseScore(point) {
+        this.score += point;
+    }
+
+    /**
+     * decrease score
+     *
+     * @param {Int32} point value to decrease.
+     */
+    DecreaseScore(point) {
+        this.score -= point;
+    }
+
     // #endregion
 
     // #region Move Right
@@ -315,6 +330,7 @@ class My2048 {
                 }
 
                 if (res.success == true) {
+                    this.IncreaseScore(this.mainArr[res.source[0]][res.source[1]] * 2);
                     this.mainArr[res.source[0]][res.source[1]] *= 2;
                     this.mainArr[res.destination[0]][res.destination[1]] = 0;
                 }
@@ -323,7 +339,6 @@ class My2048 {
         }
 
     }
-
 
     /**
      * the method that after shift,pull all 0 values to end of left
@@ -393,6 +408,7 @@ class My2048 {
                 }
 
                 if (res.success == true) {
+                    this.IncreaseScore(this.mainArr[res.source[0]][res.source[1]] * 2);
                     this.mainArr[res.source[0]][res.source[1]] *= 2;
                     this.mainArr[res.destination[0]][res.destination[1]] = 0;
                 }
@@ -469,6 +485,7 @@ class My2048 {
                 }
 
                 if (res.success == true) {
+                    this.IncreaseScore(this.mainArr[res.source[0]][res.source[1]] * 2);
                     this.mainArr[res.source[0]][res.source[1]] *= 2;
                     this.mainArr[res.destination[0]][res.destination[1]] = 0;
                 }
@@ -543,6 +560,7 @@ class My2048 {
                 }
 
                 if (res.success == true) {
+                    this.IncreaseScore(this.mainArr[res.source[0]][res.source[1]] * 2);
                     this.mainArr[res.source[0]][res.source[1]] *= 2;
                     this.mainArr[res.destination[0]][res.destination[1]] = 0;
                 }
@@ -572,6 +590,8 @@ class My2048 {
 
     // #endregion
 
+    // #region for test
+
     /**
      * the method is for set mainArr to test!
      */
@@ -585,6 +605,15 @@ class My2048 {
             ];
     }
 
+    /**
+     * show main array and score
+     */
+    Show() {
+        console.table(this.mainArr);
+        console.log('score : ' + this.score);
+    }
+
+    // #endregion
 }
 
 const count = 4;
@@ -593,6 +622,5 @@ const initializeRandomCount = 4;
 
 const My2048Instance = new My2048(count, initializeValue, initializeRandomCount);
 My2048Instance.CustomInitial();
-console.table(My2048Instance.mainArr);
-
+My2048Instance.Show();
 
