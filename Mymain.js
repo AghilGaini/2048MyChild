@@ -216,6 +216,7 @@ class My2048 {
 
         this.hasMoved = false;
         this.Show();
+        this.ShowUI('mainTbl','score');
     }
 
     /**
@@ -311,6 +312,10 @@ class My2048 {
         this.score -= point;
     }
 
+    /**
+     * method to undo
+     *
+     */
     Undo() {
         if (this.undoJson.length <= 0)
             return;
@@ -318,6 +323,37 @@ class My2048 {
         var info = JSON.parse(this.undoJson.shift());
         this.mainArr = info.mainArr;
         this.score = info.score;
+    }
+
+    /**
+     * method to show mainArr in table element in page
+     *
+     * @param {string} tableId table id to show mainArr.
+     */
+    ShowUI(tableId, scoreId) {
+        var mainTbl = $("#" + tableId);
+        mainTbl.text(null);
+
+        var row, col;
+
+        var rowInfos = [];
+
+        for (row = 0; row < this.rows; row++) {
+            var rowInfo = $("<tr></tr>");
+            var colInfos = [];
+            for (col = 0; col < this.cols; col++) {
+                var tdInfo = $("<td></td>").text(this.mainArr[row][col]);
+                colInfos.push(tdInfo);
+            }
+
+            rowInfo.append(colInfos);
+
+            rowInfos.push(rowInfo);
+        }
+
+        mainTbl.append(rowInfos);
+
+        $("#" + scoreId).text(this.score);
     }
 
     // #endregion
