@@ -87,6 +87,7 @@ class My2048 {
     #undoJson;//store all undo info as a json array
     #mainTableId; //store mainTable element id
     #scoreId; //store score element id
+    #undoId; //soter undo element id
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
@@ -100,7 +101,7 @@ class My2048 {
         this.undoJson = [];
         this.mainTableId = "mainTbl";
         this.scoreId = "score";
-
+        this.undoId = "undo";
 
         this.ComputeEmptyCells();
         this.InitializeRandom();
@@ -364,6 +365,7 @@ class My2048 {
         mainTbl.append(rowInfos);
 
         $("#" + this.scoreId).text(this.score);
+        $("#" + this.undoId).text(this.undoJson.length);
     }
 
     // #endregion
