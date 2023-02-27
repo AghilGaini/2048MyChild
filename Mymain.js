@@ -84,7 +84,9 @@ class My2048 {
     #initializeRandomCount; //initialize first count for generate random number
     #score; //store score
     #hasMoved; //if in each move has any change this would be true else false
-    #undoJson;//store all undo info as a json array 
+    #undoJson;//store all undo info as a json array
+    #mainTableId; //store mainTable element id
+    #scoreId; //store score element id
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
@@ -96,6 +98,9 @@ class My2048 {
         this.mainArr = new Array(this.rows).fill(initializeValue).map(() => new Array(this.cols).fill(initializeValue))
         this.emptyCells = [];
         this.undoJson = [];
+        this.mainTableId = "mainTbl";
+        this.scoreId = "score";
+
 
         this.ComputeEmptyCells();
         this.InitializeRandom();
@@ -216,7 +221,7 @@ class My2048 {
 
         this.hasMoved = false;
         this.Show();
-        this.ShowUI('mainTbl','score');
+        this.ShowUI();
     }
 
     /**
@@ -323,7 +328,7 @@ class My2048 {
         var info = JSON.parse(this.undoJson.shift());
         this.mainArr = info.mainArr;
         this.score = info.score;
-        this.ShowUI('mainTbl', 'score');
+        this.ShowUI();
     }
 
     /**
@@ -331,8 +336,8 @@ class My2048 {
      *
      * @param {string} tableId table id to show mainArr.
      */
-    ShowUI(tableId, scoreId) {
-        var mainTbl = $("#" + tableId);
+    ShowUI() {
+        var mainTbl = $("#" + this.mainTableId);
         mainTbl.text(null);
 
         var row, col;
@@ -358,7 +363,7 @@ class My2048 {
 
         mainTbl.append(rowInfos);
 
-        $("#" + scoreId).text(this.score);
+        $("#" + this.scoreId).text(this.score);
     }
 
     // #endregion
