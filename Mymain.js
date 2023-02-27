@@ -342,7 +342,11 @@ class My2048 {
             var rowInfo = $("<tr></tr>");
             var colInfos = [];
             for (col = 0; col < this.cols; col++) {
-                var tdInfo = $("<td></td>").text(this.mainArr[row][col]);
+                var tdInfo = "";
+                if (this.mainArr[row][col] != 0)
+                    tdInfo = $("<td class='gridCell'></td>").text(this.mainArr[row][col]);
+                else
+                    tdInfo = $("<td class='gridCell'></td>").text(' ');
                 colInfos.push(tdInfo);
             }
 

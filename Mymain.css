@@ -1,0 +1,12 @@
+.mainBox {
+    background-color: #2c2929;
+    color: black;
+    margin-top: 5%;
+    margin-right: 25%;
+    margin-left: 25%;
+}
+
+.gridCell{
+    background-color : #aaa;
+    padding : 50px;
+}
