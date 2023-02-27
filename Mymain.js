@@ -323,6 +323,7 @@ class My2048 {
         var info = JSON.parse(this.undoJson.shift());
         this.mainArr = info.mainArr;
         this.score = info.score;
+        this.ShowUI('mainTbl', 'score');
     }
 
     /**
