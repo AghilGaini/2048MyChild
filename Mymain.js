@@ -781,8 +781,11 @@ class My2048 {
 const count = 4;
 const initializeValue = 0;
 const initializeRandomCount = 4;
-
 const My2048Instance = new My2048(count, initializeValue, initializeRandomCount);
-My2048Instance.CustomInitial();
-My2048Instance.ShowUI();
+
+$(document).ready(function () {
+    My2048Instance.CustomInitial();
+    My2048Instance.ShowUI();
+
+});
 
