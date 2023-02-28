@@ -78,7 +78,7 @@ class Utils {
     static GetColor(number) {
         switch (number) {
             case 2:
-                return '#f00';
+                return '#ed4090';
                 break;
             case 4:
                 return '#f17575';
@@ -813,7 +813,7 @@ class My2048 {
             //    [65536, 32768, 16384, 8192],
             //    [4096, 2048, 1024, 512],
             //    [256, 128, 64, 32],
-            //    [16, 8, 4, 131072]
+            //    [16, 8, 4, 2]
             //];
 
             [
