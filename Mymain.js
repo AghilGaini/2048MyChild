@@ -171,7 +171,7 @@ class My2048 {
 
     /**
      * this method fill an empty cell(find randomlly) and fill it with random value
-
+     * and return its value (of random index)
      */
     FillAnEmptyCellWithRandomValue() {
         var emptyIndex = this.FindAnEmptyCellIndex();
@@ -184,6 +184,8 @@ class My2048 {
 
         this.mainArr[emptyValues[0]][emptyValues[1]] = randomNumber;
         this.RemoveFromEmptyCells(emptyIndex);
+
+        return emptyValues;
     }
 
     /**
@@ -269,9 +271,14 @@ class My2048 {
                 break;
         }
 
+        var randomCellId = "";
+
         if (this.hasMoved == true) {
             this.ComputeEmptyCells();
-            this.FillAnEmptyCellWithRandomValue();
+            var randomCell = this.FillAnEmptyCellWithRandomValue();
+            randomCellId = this.GetTileId(randomCell);
+
+            console.log("randomCellId : " + randomCellId);
 
             this.undoJson.unshift(entity);
 
@@ -283,6 +290,11 @@ class My2048 {
         this.hasMoved = false;
         this.Show();
         this.ShowUI();
+
+        if (randomCellId != "") {
+            $("#" + randomCellId).addClass("randomCellAnime");
+        }
+
     }
 
     /**
@@ -410,12 +422,13 @@ class My2048 {
             var colInfos = [];
             for (col = 0; col < this.cols; col++) {
                 var tdInfo = "";
+                var id = this.GetTileId([row, col]);
                 if (this.mainArr[row][col] != 0) {
                     var color = Utils.GetColor(this.mainArr[row][col]);
-                    tdInfo = $("<td class='gridCell' style='background-color:" + color + "'></td>").text(this.mainArr[row][col]);
+                    tdInfo = $("<td class='gridCell' id=" + id + " style='background-color:" + color + "'></td>").text(this.mainArr[row][col]);
                 }
                 else
-                    tdInfo = $("<td class='gridCell'></td>").text(' ');
+                    tdInfo = $("<td class='gridCell' id=" + id + "></td>").text(' ');
                 colInfos.push(tdInfo);
             }
 
@@ -430,6 +443,11 @@ class My2048 {
         $("#" + this.undoId).text(this.undoJson.length);
     }
 
+
+    GetTileId(tileIndex) {
+        var id = 'tile' + tileIndex[0] + '' + tileIndex[1];
+        return id;
+    }
     // #endregion
 
     // #region Move Right
