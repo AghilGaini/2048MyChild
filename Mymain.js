@@ -278,8 +278,6 @@ class My2048 {
             var randomCell = this.FillAnEmptyCellWithRandomValue();
             randomCellId = this.GetTileId(randomCell);
 
-            console.log("randomCellId : " + randomCellId);
-
             this.undoJson.unshift(entity);
 
             if (this.undoJson.length >= 6) {
@@ -291,6 +289,7 @@ class My2048 {
         this.Show();
         this.ShowUI();
 
+        //generate animation class for random cell
         if (randomCellId != "") {
             $("#" + randomCellId).addClass("randomCellAnime");
         }
@@ -443,7 +442,11 @@ class My2048 {
         $("#" + this.undoId).text(this.undoJson.length);
     }
 
-
+    /**
+     * method to return the id of cells
+     * @param {Array} tileIndex index to get its id.
+     * 
+     */
     GetTileId(tileIndex) {
         var id = 'tile' + tileIndex[0] + '' + tileIndex[1];
         return id;
