@@ -72,6 +72,65 @@ class Utils {
         return false;
     }
 
+    /**
+         * get color based on entry number
+    */
+    static GetColor(number) {
+        switch (number) {
+            case 2:
+                return '#f00';
+                break;
+            case 4:
+                return '#f17575';
+                break;
+            case 8:
+                return '#ff5200';
+                break;
+            case 16:
+                return '#f170e7';
+                break;
+            case 32:
+                return '#ff8d00';
+                break;
+            case 64:
+                return '#ffb65c';
+                break;
+            case 128:
+                return '#f1c904';
+                break;
+            case 256:
+                return '#e9d46a';
+                break;
+            case 512:
+                return '#ccff00';
+                break;
+            case 1024:
+                return '#bbd162';
+                break;
+            case 2048:
+                return '#90fd00';
+                break;
+            case 4096:
+                return '#8db756';
+                break;
+            case 8192:
+                return '#02ff8a';
+                break;
+            case 16384:
+                return '#57b589';
+                break;
+            case 32768:
+                return '#68b3ff';
+                break;
+            case 65536:
+                return '#3980c7';
+                break;
+            case 131072:
+                return '#798104';
+                break;
+        }
+    }
+
 }
 
 class My2048 {
@@ -350,8 +409,10 @@ class My2048 {
             var colInfos = [];
             for (col = 0; col < this.cols; col++) {
                 var tdInfo = "";
-                if (this.mainArr[row][col] != 0)
-                    tdInfo = $("<td class='gridCell'></td>").text(this.mainArr[row][col]);
+                if (this.mainArr[row][col] != 0) {
+                    var color = Utils.GetColor(this.mainArr[row][col]);
+                    tdInfo = $("<td class='gridCell' style='background-color:" + color + "'></td>").text(this.mainArr[row][col]);
+                }
                 else
                     tdInfo = $("<td class='gridCell'></td>").text(' ');
                 colInfos.push(tdInfo);
@@ -690,6 +751,13 @@ class My2048 {
      */
     CustomInitial() {
         this.mainArr =
+            //[
+            //    [65536, 32768, 16384, 8192],
+            //    [4096, 2048, 1024, 512],
+            //    [256, 128, 64, 32],
+            //    [16, 8, 4, 131072]
+            //];
+
             [
                 [0, 2, 4, 2],
                 [2, 4, 4, 2],
@@ -715,5 +783,5 @@ const initializeRandomCount = 4;
 
 const My2048Instance = new My2048(count, initializeValue, initializeRandomCount);
 My2048Instance.CustomInitial();
-My2048Instance.Show();
+My2048Instance.ShowUI();
 
