@@ -211,6 +211,7 @@ class My2048 {
      * this method is for find empty cells and fill emptyCells property
      */
     ComputeEmptyCells() {
+        this.emptyCells = [];
         var i;
         var j;
         for (i = 0; i < this.rows; i++) {
