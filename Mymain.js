@@ -273,8 +273,9 @@ class My2048 {
 
         var randomCellId = "";
 
+        this.ComputeEmptyCells();
+
         if (this.hasMoved == true) {
-            this.ComputeEmptyCells();
             var randomCell = this.FillAnEmptyCellWithRandomValue();
             randomCellId = this.GetTileId(randomCell);
 
@@ -292,6 +293,10 @@ class My2048 {
         //generate animation class for random cell
         if (randomCellId != "") {
             $("#" + randomCellId).addClass("randomCellAnime");
+        }
+
+        if (this.CheckEnd() == true) {
+            alert("ridi dg");
         }
 
     }
@@ -451,6 +456,37 @@ class My2048 {
         var id = 'tile' + tileIndex[0] + '' + tileIndex[1];
         return id;
     }
+
+    /**
+     * method check that game has any move
+     *
+     */
+    CheckEnd() {
+        if (this.emptyCells.length > 0)
+            return false;
+
+        var row, col;
+
+        //check left and right
+        for (row = 0; row < this.rows; row++) {
+            for (col = 0; col < this.cols - 1; col++) {
+                if (this.mainArr[row][col] == this.mainArr[row][col + 1])
+                    return false;
+            }
+        }
+
+        //check up and down
+        for (row = 0; row < this.rows - 1; row++) {
+            for (col = 0; col < this.cols; col++) {
+                if (this.mainArr[row][col] == this.mainArr[row + 1][col])
+                    return false;
+            }
+        }
+
+        return true;
+
+    }
+
     // #endregion
 
     // #region Move Right
