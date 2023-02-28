@@ -10,16 +10,26 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="Mymain.js"></script>
 </head>
-<body>
+<body class="container">
 
-    <h1 style="text-align:center;">
-        2048 
-        Score : <span id="score"></span>
-        Undo : <span id="undo"></span>
-    </h1>
-    <div class="mainBox">
-        <table id="mainTbl" style="width:100%;">
-        </table>
+    <div>
+        <p class="title">
+            2048
+        </p>
+        <div class="row info">
+            <div class="col-xs-12 col-md-12">Score : <span id="score"></span></div>
+        </div>
+        <div class="row info">
+            <div class="col-xs-12 col-md-12">Undo : <span id="undo"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mainBox">
+                    <table id="mainTbl" style="width:100%;">
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

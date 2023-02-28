@@ -3,6 +3,11 @@
     src: url("fonts/Voga-Medium.otf");
 }
 
+@font-face {
+    font-family: "Night";
+    src: url("fonts/TheNightWatch.ttf");
+}
+
 .randomCellAnime {
     animation-name: randomCellAnime;
     animation-duration: 0.5s;
@@ -28,7 +33,6 @@
     100% {
         transform: scale(1)
     }
-
     /*
         with thanks to! : https://webcode.tools/generators/css/keyframe-animation
     0% {
@@ -81,13 +85,24 @@ body {
     font-family: Voga;
 }
 
+.title {
+    font-size:69px;
+    text-align:center;
+}
+
+.info {
+    font-size:2em;
+    text-align:center;
+    font-family:Night;
+    font-weight:bold;
+}
+
 .mainBox {
-    /*background-color: #2c2929;*/
     position: absolute;
     width: 510px;
     height: 510px;
     background-color: #888;
-    top: 150px;
+    top: 50%;
     border-radius: 0px;
     border: 5px solid #888;
     display: table;
@@ -109,5 +124,5 @@ body {
     vertical-align: middle;
     width: 125px;
     height: 125px;
-    border-radius : 18px;
+    border-radius: 18px;
 }
