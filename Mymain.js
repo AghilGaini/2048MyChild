@@ -146,10 +146,13 @@ class My2048 {
     #undoJson;//store all undo info as a json array
     #mainTableId; //store mainTable element id
     #scoreId; //store score element id
-    #undoId; //soter undo element id
+    #undoId; //store undo element id
+    #totalMovesId; //store totalMoves element id 
+    #totalMoves;//store total move counts(without undo counts)
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
+        this.totalMoves = 0;
         this.hasMoved = false;
         this.rows = count;
         this.cols = count;
@@ -161,6 +164,7 @@ class My2048 {
         this.mainTableId = "mainTbl";
         this.scoreId = "score";
         this.undoId = "undo";
+        this.totalMovesId = "totalMoves";
 
         this.ComputeEmptyCells();
         this.InitializeRandom();
@@ -253,6 +257,7 @@ class My2048 {
         var entity = {};
         entity.mainArr = this.mainArr;
         entity.score = this.score;
+        entity.totalMoves = this.totalMoves;
 
         entity = JSON.stringify(entity);
 
@@ -276,6 +281,7 @@ class My2048 {
         this.ComputeEmptyCells();
 
         if (this.hasMoved == true) {
+            this.totalMoves++;
             var randomCell = this.FillAnEmptyCellWithRandomValue();
             randomCellId = this.GetTileId(randomCell);
 
@@ -405,6 +411,7 @@ class My2048 {
         var info = JSON.parse(this.undoJson.shift());
         this.mainArr = info.mainArr;
         this.score = info.score;
+        this.totalMoves = info.totalMoves;
         this.ShowUI();
     }
 
@@ -445,6 +452,7 @@ class My2048 {
 
         $("#" + this.scoreId).text(this.score);
         $("#" + this.undoId).text(this.undoJson.length);
+        $("#" + this.totalMovesId).text(this.totalMoves);
     }
 
     /**
