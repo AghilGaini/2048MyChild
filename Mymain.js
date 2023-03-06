@@ -20,7 +20,7 @@ document.addEventListener('keydown', (event) => {
     else if (charCode == Keys.D || charCode == Keys.RightArrow) {
         My2048Instance.Move('R');
     }
-    else if (charCode == Keys.U) {
+    else if (charCode == Keys.U || charCode == Keys.Q) {
         My2048Instance.Undo();
         My2048Instance.Show();
     }
@@ -39,7 +39,8 @@ const Keys = {
     'A': 65, //left
     'RightArrow': 39,
     'D': 68, //right
-    'U': 85 //U char for undo
+    'U': 85, //U char for undo
+    'Q': 81, //Q char for undo
 }
 
 class Utils {
