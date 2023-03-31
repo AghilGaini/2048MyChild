@@ -9,18 +9,23 @@ document.addEventListener('keydown', (event) => {
     //alert(`Key pressed ${name} \r\n Key code value: ${code} \r\n char code  : ${charCode}`);
 
     if (charCode == Keys.W || charCode == Keys.UpArrow) {
+        event.preventDefault();
         My2048Instance.Move('U');
     }
     else if (charCode == Keys.S || charCode == Keys.DownArrow) {
+        event.preventDefault();
         My2048Instance.Move('D');
     }
     else if (charCode == Keys.A || charCode == Keys.LeftArrow) {
+        event.preventDefault();
         My2048Instance.Move('L');
     }
     else if (charCode == Keys.D || charCode == Keys.RightArrow) {
+        event.preventDefault();
         My2048Instance.Move('R');
     }
     else if (charCode == Keys.U || charCode == Keys.Q) {
+        event.preventDefault();
         My2048Instance.Undo();
         My2048Instance.Show();
     }
