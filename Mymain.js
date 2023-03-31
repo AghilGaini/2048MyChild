@@ -9,23 +9,23 @@ document.addEventListener('keydown', (event) => {
     //alert(`Key pressed ${name} \r\n Key code value: ${code} \r\n char code  : ${charCode}`);
 
     if (charCode == Keys.W || charCode == Keys.UpArrow) {
-        event.preventDefault();
+        event.preventDefault(); //to pervent  default behavior of keys
         My2048Instance.Move('U');
     }
     else if (charCode == Keys.S || charCode == Keys.DownArrow) {
-        event.preventDefault();
+        event.preventDefault(); //to pervent  default behavior of keys
         My2048Instance.Move('D');
     }
     else if (charCode == Keys.A || charCode == Keys.LeftArrow) {
-        event.preventDefault();
+        event.preventDefault(); //to pervent  default behavior of keys
         My2048Instance.Move('L');
     }
     else if (charCode == Keys.D || charCode == Keys.RightArrow) {
-        event.preventDefault();
+        event.preventDefault(); //to pervent  default behavior of keys
         My2048Instance.Move('R');
     }
     else if (charCode == Keys.U || charCode == Keys.Q) {
-        event.preventDefault();
+        event.preventDefault(); //to pervent  default behavior of keys
         My2048Instance.Undo();
         My2048Instance.Show();
     }
@@ -197,6 +197,7 @@ class My2048 {
     #totalMovesId; //store totalMoves element id 
     #totalMoves;//store total move counts(without undo counts)
     #startTotalTime;//store start time of the game
+    #totalUndoUsed;//store total times that undo used
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
@@ -209,6 +210,7 @@ class My2048 {
         this.mainArr = new Array(this.rows).fill(initializeValue).map(() => new Array(this.cols).fill(initializeValue))
         this.emptyCells = [];
         this.undoJson = [];
+        this.totalUndoUsed = 0;
         this.startTotalTime = new Date();
         this.mainTableId = "mainTbl";
         this.scoreId = "score";
@@ -470,6 +472,8 @@ class My2048 {
     Undo() {
         if (this.undoJson.length <= 0)
             return;
+
+        this.totalUndoUsed++;
 
         var info = JSON.parse(this.undoJson.shift());
         this.mainArr = info.mainArr;
