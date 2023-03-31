@@ -198,6 +198,7 @@ class My2048 {
     #totalMoves;//store total move counts(without undo counts)
     #startTotalTime;//store start time of the game
     #totalUndoUsed;//store total times that undo used
+    #gameOver;//true if gameOver !
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
@@ -212,6 +213,7 @@ class My2048 {
         this.undoJson = [];
         this.totalUndoUsed = 0;
         this.startTotalTime = new Date();
+        this.gameOver = false;
         this.mainTableId = "mainTbl";
         this.scoreId = "score";
         this.undoId = "undo";
@@ -323,6 +325,7 @@ class My2048 {
         entity.mainArr = this.mainArr;
         entity.score = this.score;
         entity.totalMoves = this.totalMoves;
+        entity.gameOver = this.gameOver;
 
         entity = JSON.stringify(entity);
 
@@ -479,6 +482,7 @@ class My2048 {
         this.mainArr = info.mainArr;
         this.score = info.score;
         this.totalMoves = info.totalMoves;
+        this.gameOver = info.gameOver;
         this.ShowUI();
     }
 
@@ -537,6 +541,10 @@ class My2048 {
      *
      */
     CheckEnd() {
+
+        if (this.gameOver == true)
+            return true;
+
         if (this.emptyCells.length > 0)
             return false;
 
@@ -558,6 +566,7 @@ class My2048 {
             }
         }
 
+        this.gameOver = true;
         return true;
 
     }
