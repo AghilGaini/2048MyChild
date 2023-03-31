@@ -43,6 +43,18 @@ const Keys = {
     'Q': 81, //Q char for undo
 }
 
+/**
+    * this hold different times in milliSeconds
+*/
+const TimesInMilliSeconds =
+{
+    'Seconds': 1000,
+    'Minutes': 60000,//1000*60
+    'Hours': 3600000,//60000*60
+    'Days': 86400000,//3600000 *24
+    'Years': 31536000000,//86400000 *365
+}
+
 class Utils {
 
     /**
@@ -132,6 +144,35 @@ class Utils {
         }
     }
 
+    /**
+         * covnert entry time to year,day,hours,minutes,seconds,milliSeconds
+         * entryTime must be in milliSeconds
+    */
+    static ConvertTime(entryTime) {
+        var info = {};
+
+        var remind = 0
+
+        info.years = Math.floor(entryTime / TimesInMilliSeconds.Years);
+        remind = entryTime % TimesInMilliSeconds.Years;
+
+        info.days = Math.floor(remind / TimesInMilliSeconds.Days);
+        remind = remind % TimesInMilliSeconds.Days;
+
+        info.hours = Math.floor(remind / TimesInMilliSeconds.Hours);
+        remind = remind % TimesInMilliSeconds.Hours;
+
+        info.minutes = Math.floor(remind / TimesInMilliSeconds.Minutes);
+        remind = remind % TimesInMilliSeconds.Minutes;
+
+        info.seconds = Math.floor(remind / TimesInMilliSeconds.Seconds);
+        remind = remind % TimesInMilliSeconds.Seconds;
+
+        info.milliSeconds = remind;
+
+        return info;
+    }
+
 }
 
 class My2048 {
@@ -150,6 +191,7 @@ class My2048 {
     #undoId; //store undo element id
     #totalMovesId; //store totalMoves element id 
     #totalMoves;//store total move counts(without undo counts)
+    #startTotalTime;//store start time of the game
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
@@ -162,6 +204,7 @@ class My2048 {
         this.mainArr = new Array(this.rows).fill(initializeValue).map(() => new Array(this.cols).fill(initializeValue))
         this.emptyCells = [];
         this.undoJson = [];
+        this.startTotalTime = new Date();
         this.mainTableId = "mainTbl";
         this.scoreId = "score";
         this.undoId = "undo";
@@ -230,13 +273,27 @@ class My2048 {
     }
 
     /**
-     * this methis is for fill random cells at first
+     * this method is for fill random cells at first
      */
     InitializeRandom() {
         var i;
         for (i = 0; i < this.initializeRandomCount; i++) {
             this.FillAnEmptyCellWithRandomValue();
         }
+    }
+
+    /**
+     * this method is for calculate elapsed time from start game
+     */
+    GetTotalTime() {
+        var end = new Date();
+
+        var timeInMilliSeconds = end - this.startTotalTime;
+
+        var timeInfo = Utils.ConvertTime(timeInMilliSeconds);
+
+        console.table(timeInfo);
+
     }
 
     /**
