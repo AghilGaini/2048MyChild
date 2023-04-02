@@ -1,0 +1,78 @@
+2048 tasks : 
+
+------------- First to do ---------
+-set pause btn (pause time and game)
+-on pause btn show a picture on main tbl
+
+-give option to select custom number(this is options to select between 2,4,8,16
+-check end game before any move
+-show help for game
+-search for fade out and in between to state in html css animation
+-add reset btn
+-store best score(read from file)
+-store sequences of moves (to prevent cheating!)
+-change sizes in different page sizes
+-store total use of undo
+-security in js : 
+	https://blog.jscrambler.com/the-most-effective-way-to-protect-client-side-javascript-applications
+	https://obfuscator.io/
+
+
+------------- ok List ---------
+-set total timer  --> ok
+-store total of moves --> ok
+-use Q key to undo --> ok
+-add key listener for key moves --> ok
+-check end game --> ok
+-store score --> ok
+-after each move:
+	-store score --> ok
+	-compute empty cells --> ok
+	-fill random empty cells --> ok
+	-check end game  --> ok
+
+-store 5 last moves to undo --> ok
+-pause button 
+-store time	
+-show sample UI
+	-show main array --> ok
+	-show score --> ok
+	-show undo moves --> ok
+-show menu to select options(cube size,...)
+-js socket 
+	https://zetcode.com/javascript/socket/#:~:text=In%20programming%2C%20a%20socket%20is,js%20net%20module.
+
+----------------------------------------------------
+Statistics : 
+1-total moves without undo
+2-total undo
+3-total moves with undo
+4-total score
+5-total effective score (with undo)
+6-total time (from start to end)
+7-total time (with pause effect)
+7-time to reach 2048,4086, ...
+8-moves to reach 2048,4086,....
+----------------------------------------------------
+
+Other : 
+
+
+-fonts:
+	https://blog.faradars.org/most-popular-fonts/
+-2048 samples :
+	https://devsnap.me/javascript-2048-games
+	https://codepen.io/ramenhog/pen/JWZzry
+	https://codepen.io/fabi_yo_/pen/zNrmwZ
+----------------------------------------------------
+accounting : 
+-create accounting 
+-store statistics(time,moves,undo,scores)
+
+
+alimardani
+
+
+
+
+
