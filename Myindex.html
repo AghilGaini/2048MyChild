@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="Mymain.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <script src="Mymain.js"></script>
@@ -46,14 +46,39 @@
     </div>
 
     <!--Statistics modal-->
-    <div class="modal fade" id="mod" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="StatisticsModal" tabindex="-1" aria-labelledby="StatisticsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Statistics</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5 stHeader" id="StatisticsModalLabel">Statistics</h1>
                 </div>
                 <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6 stTitle">Total Moves with undo</div>
+                        <div class="col-md-6 stInfo" id="stTotalEffectiveMoves"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 stTitle">Total Moves</div>
+                        <div class="col-md-6 stInfo" id="stTotalMoves"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 stTitle">Used Undo</div>
+                        <div class="col-md-6 stInfo" id="stUsedUndo"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 stTitle">remaind Undo</div>
+                        <div class="col-md-6 stInfo" id="stRemaindUndo"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 stTitle">Total Time</div>
+                        <div class="col-md-6 stInfo" id="stTotalTime">3</div>
+                    </div>
+
 
                 </div>
                 <div class="modal-footer">

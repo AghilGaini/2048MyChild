@@ -98,8 +98,8 @@ body {
 }
 
 .infoBox {
-    padding:15px;
-    text-align:center;
+    padding: 15px;
+    text-align: center;
     width: 500px;
     height: 150px;
     /*position: absolute;*/
@@ -108,7 +108,7 @@ body {
     border: 0px solid #888;
     left: 0;
     right: 0;
-    bottom:0;
+    bottom: 0;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
@@ -151,4 +151,25 @@ body {
     text-align: center;
     vertical-align: middle;
     border-radius: 4px;
+}
+
+.stHeader {
+    font-size: 3.5em;
+    text-align: center;
+    font-family: Voga;
+    /*font-weight: bold;*/
+}
+
+.stTitle {
+    font-size: 1.0em;
+    text-align: center;
+    font-family: Night;
+    font-weight: bold;
+}
+
+.stInfo {
+    font-size: 1.0em;
+    text-align: center;
+    /*font-family: Voga;*/
+    /*font-weight: bold;*/
 }

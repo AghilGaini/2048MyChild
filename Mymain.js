@@ -309,7 +309,7 @@ class My2048 {
 
         var timeInfo = Utils.ConvertTime(timeInMilliSeconds);
 
-        console.table(timeInfo);
+        return timeInfo;
 
     }
 
@@ -947,6 +947,22 @@ function UndoClick() {
 
 
 function ShowStatistics() {
-    $('#mod').modal('show');
+
+    var time = My2048Instance.GetTotalTime();
+    var years = time.years;
+    var days = time.days.toString().padStart(2, '0');
+    var hours = time.hours.toString().padStart(2, '0');
+    var minutes = time.minutes.toString().padStart(2, '0');
+    var seconds = time.seconds.toString().padStart(2, '0');
+    var milliSeconds = time.milliSeconds.toString().padStart(3, '0');
+
+    var effectiveMoves = My2048Instance.totalMoves + My2048Instance.totalUndoUsed;
+
+    $("#stTotalEffectiveMoves").text(effectiveMoves);
+    $("#stTotalMoves").text(My2048Instance.totalMoves);
+    $("#stRemaindUndo").text(My2048Instance.undoJson.length);
+    $("#stTotalTime").text(years + '-' + days + ' ' + hours + ':' + minutes + ':' + seconds + "." + milliSeconds + '    (Y-DD HH:mm:ss.sss) ');
+    $("#stUsedUndo").text(My2048Instance.totalUndoUsed);
+    $('#StatisticsModal').modal('show');
 }
 
