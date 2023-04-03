@@ -932,9 +932,14 @@ const initializeValue = 0;
 const initializeRandomCount = 4;
 const My2048Instance = new My2048(count, initializeValue, initializeRandomCount);
 
+
 $(document).ready(function () {
     My2048Instance.CustomInitial();
     My2048Instance.ShowUI();
-
 });
+
+
+function UndoClick() {
+    My2048Instance.Undo();
+}
 
