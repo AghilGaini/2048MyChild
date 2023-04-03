@@ -945,3 +945,8 @@ function UndoClick() {
     My2048Instance.Undo();
 }
 
+
+function ShowStatistics() {
+    $('#mod').modal('show');
+}
+
