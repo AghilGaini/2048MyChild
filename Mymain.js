@@ -938,7 +938,9 @@ $(document).ready(function () {
     My2048Instance.ShowUI();
 });
 
-
+/**
+     * function that assigned to Undo btn 
+*/
 function UndoClick() {
     My2048Instance.Undo();
 }
