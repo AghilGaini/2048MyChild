@@ -1,12 +1,8 @@
 2048 tasks : 
 
 ------------- First to do ---------
--set pause btn (pause time and game)
--on pause btn show a picture on main tbl
-
--show undo moves with badge instead of text
+-set first initalize for game
 -give option to select custom number(this is options to select between 2,4,8,16
--check end game before any move
 -show help for game
 -search for fade out and in between to state in html css animation
 -add reset btn
@@ -20,6 +16,8 @@
 
 
 ------------- ok List ---------
+-check end game before any move --> ok 
+-show undo moves with badge instead of text --> ok
 -set total timer  --> ok
 -store total of moves --> ok
 -use Q key to undo --> ok
@@ -33,8 +31,6 @@
 	-check end game  --> ok
 
 -store 5 last moves to undo --> ok
--pause button 
--store time	
 -show sample UI
 	-show main array --> ok
 	-show score --> ok

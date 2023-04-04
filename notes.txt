@@ -1,15 +1,4 @@
-Test List : 
-
-Right : 
-ShiftRight -> ok
-CollapseRight -> not ok
-
-
-My2048Instance.CustomInitial();console.table(My2048Instance.mainArr);
-
-My2048Instance.ShiftRight();console.table(My2048Instance.mainArr);
-
-My2048Instance.CollapseRight();console.table(My2048Instance.mainArr);
-
+icons site : 
+https://fonts.google.com/icons
 
 
