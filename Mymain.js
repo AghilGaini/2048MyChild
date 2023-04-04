@@ -201,8 +201,7 @@ class My2048 {
     #undoJson;//store all undo info as a json array
     #mainTableId; //store mainTable element id
     #scoreId; //store score element id
-    #undoId; //store undo element id
-    #totalMovesId; //store totalMoves element id 
+    #undoCountsId; //store remaind of undo counts element Id
     #totalMoves;//store total move counts(without undo counts)
     #startTotalTime;//store start time of the game
     #totalUndoUsed;//store total times that undo used
@@ -224,15 +223,20 @@ class My2048 {
         this.gameOver = false;
         this.mainTableId = "mainTbl";
         this.scoreId = "score";
-        this.undoId = "undo";
-        this.totalMovesId = "totalMoves";
-
-        this.ComputeEmptyCells();
-        this.InitializeRandom();
+        this.undoCountsId = "spnUndoCounts";
     }
 
     // #region Methods
 
+    InitialGame() {
+        this.ComputeEmptyCells();
+        this.InitializeRandom();
+        this.SetUndoCount();
+    }
+
+    SetUndoCount() {
+        $('#' + this.undoCountsId).text(this.undoJson.length);
+    }
 
     /**
      * this method fill an empty cell(find randomlly) and fill it with random value
@@ -369,6 +373,9 @@ class My2048 {
         }
 
         this.hasMoved = false;
+
+        this.SetUndoCount();
+
         this.Show();
         this.ShowUI();
 
@@ -491,6 +498,7 @@ class My2048 {
         this.score = info.score;
         this.totalMoves = info.totalMoves;
         this.gameOver = info.gameOver;
+        this.SetUndoCount();
         this.ShowUI();
     }
 
@@ -530,8 +538,6 @@ class My2048 {
         mainTbl.append(rowInfos);
 
         $("#" + this.scoreId).text(this.score);
-        $("#" + this.undoId).text(this.undoJson.length);
-        $("#" + this.totalMovesId).text(this.totalMoves);
     }
 
     /**
@@ -934,7 +940,8 @@ const My2048Instance = new My2048(count, initializeValue, initializeRandomCount)
 
 
 $(document).ready(function () {
-    My2048Instance.CustomInitial();
+    //My2048Instance.CustomInitial();
+    My2048Instance.InitialGame();
     My2048Instance.ShowUI();
 });
 
@@ -961,7 +968,7 @@ function ShowStatistics() {
     $("#stTotalEffectiveMoves").text(effectiveMoves);
     $("#stTotalMoves").text(My2048Instance.totalMoves);
     $("#stRemaindUndo").text(My2048Instance.undoJson.length);
-    $("#stTotalTime").text(years + '-' + days + ' ' + hours + ':' + minutes + ':' + seconds + "." + milliSeconds + '    (Y-DD HH:mm:ss.sss) ');
+    $("#stTotalTime").text(years + '-' + days + ' ' + hours + ':' + minutes + ':' + seconds + "." + milliSeconds);
     $("#stUsedUndo").text(My2048Instance.totalUndoUsed);
     $('#StatisticsModal').modal('show');
 }
