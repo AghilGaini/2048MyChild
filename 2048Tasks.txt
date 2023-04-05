@@ -1,21 +1,23 @@
 2048 tasks : 
 
 ------------- First to do ---------
--set first initalize for game
+-moves to reach 2048,4086,....
+-time to reach 2048,4086, ...
 -give option to select custom number(this is options to select between 2,4,8,16
--show help for game
 -search for fade out and in between to state in html css animation
 -add reset btn
 -store best score(read from file)
 -store sequences of moves (to prevent cheating!)
 -change sizes in different page sizes
--store total use of undo
 -security in js : 
 	https://blog.jscrambler.com/the-most-effective-way-to-protect-client-side-javascript-applications
 	https://obfuscator.io/
 
 
 ------------- ok List ---------
+-show help for game --> ok
+-store total use of undo --> ok
+-set first initalize for game --> ok
 -check end game before any move --> ok 
 -show undo moves with badge instead of text --> ok
 -set total timer  --> ok

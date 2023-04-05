@@ -973,3 +973,40 @@ function ShowStatistics() {
     $('#StatisticsModal').modal('show');
 }
 
+function ShowHelp()
+{
+		$('#HelpModal').modal('show');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

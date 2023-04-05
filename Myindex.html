@@ -22,9 +22,11 @@
             2048
         </p>
         <div class="infoBox">
-            <div class="row info">
+			<div class="row info">
                 <div class="col-xs-8 col-md-8">Score : <span id="score"></span></div>
-                <div class="col-xs-1 col-md-1">
+            </div>
+			<div class="row info">
+				<div class="col-xs-3 col-md-3">
 					<button class="btns" onclick="ShowStatistics()">
 						<img src = "svg/statistics.svg" alt="undo"/>
 					</button>
@@ -35,7 +37,13 @@
                         <span id="spnUndoCounts"></span>
 					</button>
                 </div>
-            </div>
+				<div class="col-xs-3 col-md-3">
+					<button class="btns" onclick="ShowHelp()">
+						<img src = "svg/help.svg" alt="undo"/>
+                        <span id="spnHelp"></span>
+					</button>
+                </div>
+			</div> 
         </div>
 
         <div class="row">
@@ -86,10 +94,79 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="$('#StatisticsModal').modal('hide');">Close</button>
-                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<!--Help modal-->
+    <div class="modal fade" id="HelpModal" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 stHeader">Help</h1>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6 stTitle">Control Game : </div>
+                        <div class="col-md-6 stInfo">Arrow Keys or A,W,S,D</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 stTitle">Undo : </div>
+                        <div class="col-md-6 stInfo">Q or U</div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="$('#HelpModal').modal('hide');">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
