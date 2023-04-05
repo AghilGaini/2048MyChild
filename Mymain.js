@@ -907,12 +907,6 @@ class My2048 {
      */
     CustomInitial() {
         this.mainArr =
-            //[
-            //    [65536, 32768, 16384, 8192],
-            //    [4096, 2048, 1024, 512],
-            //    [256, 128, 64, 32],
-            //    [16, 8, 4, 2]
-            //];
 
             [
                 [0, 2, 4, 2],
@@ -933,7 +927,7 @@ class My2048 {
     // #endregion
 }
 
-const count = 4;
+const count = 6;
 const initializeValue = 0;
 const initializeRandomCount = 4;
 const My2048Instance = new My2048(count, initializeValue, initializeRandomCount);

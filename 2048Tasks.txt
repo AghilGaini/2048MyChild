@@ -3,6 +3,7 @@
 ------------- First to do ---------
 -moves to reach 2048,4086,....
 -time to reach 2048,4086, ...
+-correct size for other qube sizes
 -give option to select custom number(this is options to select between 2,4,8,16
 -search for fade out and in between to state in html css animation
 -add reset btn
