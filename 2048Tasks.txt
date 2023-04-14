@@ -1,6 +1,7 @@
 2048 tasks : 
 
 ------------- First to do ---------
+-dont do any thing when show statistics
 -moves to reach 2048,4086,....
 -time to reach 2048,4086, ...
 -correct size for other qube sizes

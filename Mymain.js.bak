@@ -9,18 +9,31 @@ document.addEventListener('keydown', (event) => {
     //alert(`Key pressed ${name} \r\n Key code value: ${code} \r\n char code  : ${charCode}`);
 
     if (charCode == Keys.W || charCode == Keys.UpArrow) {
+        event.preventDefault(); //to pervent  default behavior of keys
+        if (My2048Instance.CheckEnd() == true)
+            return;
         My2048Instance.Move('U');
     }
     else if (charCode == Keys.S || charCode == Keys.DownArrow) {
+        event.preventDefault(); //to pervent  default behavior of keys
+        if (My2048Instance.CheckEnd() == true)
+            return;
         My2048Instance.Move('D');
     }
     else if (charCode == Keys.A || charCode == Keys.LeftArrow) {
+        event.preventDefault(); //to pervent  default behavior of keys
+        if (My2048Instance.CheckEnd() == true)
+            return;
         My2048Instance.Move('L');
     }
     else if (charCode == Keys.D || charCode == Keys.RightArrow) {
+        event.preventDefault(); //to pervent  default behavior of keys
+        if (My2048Instance.CheckEnd() == true)
+            return;
         My2048Instance.Move('R');
     }
     else if (charCode == Keys.U || charCode == Keys.Q) {
+        event.preventDefault(); //to pervent  default behavior of keys
         My2048Instance.Undo();
         My2048Instance.Show();
     }
@@ -41,6 +54,18 @@ const Keys = {
     'D': 68, //right
     'U': 85, //U char for undo
     'Q': 81, //Q char for undo
+}
+
+/**
+    * this hold different times in milliSeconds
+*/
+const TimesInMilliSeconds =
+{
+    'Seconds': 1000,
+    'Minutes': 60000,//1000*60
+    'Hours': 3600000,//60000*60
+    'Days': 86400000,//3600000 *24
+    'Years': 31536000000,//86400000 *365
 }
 
 class Utils {
@@ -132,6 +157,35 @@ class Utils {
         }
     }
 
+    /**
+         * covnert entry time to year,day,hours,minutes,seconds,milliSeconds
+         * entryTime must be in milliSeconds
+    */
+    static ConvertTime(entryTime) {
+        var info = {};
+
+        var remind = 0
+
+        info.years = Math.floor(entryTime / TimesInMilliSeconds.Years);
+        remind = entryTime % TimesInMilliSeconds.Years;
+
+        info.days = Math.floor(remind / TimesInMilliSeconds.Days);
+        remind = remind % TimesInMilliSeconds.Days;
+
+        info.hours = Math.floor(remind / TimesInMilliSeconds.Hours);
+        remind = remind % TimesInMilliSeconds.Hours;
+
+        info.minutes = Math.floor(remind / TimesInMilliSeconds.Minutes);
+        remind = remind % TimesInMilliSeconds.Minutes;
+
+        info.seconds = Math.floor(remind / TimesInMilliSeconds.Seconds);
+        remind = remind % TimesInMilliSeconds.Seconds;
+
+        info.milliSeconds = remind;
+
+        return info;
+    }
+
 }
 
 class My2048 {
@@ -147,9 +201,11 @@ class My2048 {
     #undoJson;//store all undo info as a json array
     #mainTableId; //store mainTable element id
     #scoreId; //store score element id
-    #undoId; //store undo element id
-    #totalMovesId; //store totalMoves element id 
+    #undoCountsId; //store remaind of undo counts element Id
     #totalMoves;//store total move counts(without undo counts)
+    #startTotalTime;//store start time of the game
+    #totalUndoUsed;//store total times that undo used
+    #gameOver;//true if gameOver !
 
     constructor(count, initializeValue, initializeRandomCount) {
         this.score = 0;
@@ -162,17 +218,25 @@ class My2048 {
         this.mainArr = new Array(this.rows).fill(initializeValue).map(() => new Array(this.cols).fill(initializeValue))
         this.emptyCells = [];
         this.undoJson = [];
+        this.totalUndoUsed = 0;
+        this.startTotalTime = new Date();
+        this.gameOver = false;
         this.mainTableId = "mainTbl";
         this.scoreId = "score";
-        this.undoId = "undo";
-        this.totalMovesId = "totalMoves";
-
-        this.ComputeEmptyCells();
-        this.InitializeRandom();
+        this.undoCountsId = "spnUndoCounts";
     }
 
     // #region Methods
 
+    InitialGame() {
+        this.ComputeEmptyCells();
+        this.InitializeRandom();
+        this.SetUndoCount();
+    }
+
+    SetUndoCount() {
+        $('#' + this.undoCountsId).text(this.undoJson.length);
+    }
 
     /**
      * this method fill an empty cell(find randomlly) and fill it with random value
@@ -230,13 +294,27 @@ class My2048 {
     }
 
     /**
-     * this methis is for fill random cells at first
+     * this method is for fill random cells at first
      */
     InitializeRandom() {
         var i;
         for (i = 0; i < this.initializeRandomCount; i++) {
             this.FillAnEmptyCellWithRandomValue();
         }
+    }
+
+    /**
+     * this method is for calculate elapsed time from start game
+     */
+    GetTotalTime() {
+        var end = new Date();
+
+        var timeInMilliSeconds = end - this.startTotalTime;
+
+        var timeInfo = Utils.ConvertTime(timeInMilliSeconds);
+
+        return timeInfo;
+
     }
 
     /**
@@ -259,6 +337,7 @@ class My2048 {
         entity.mainArr = this.mainArr;
         entity.score = this.score;
         entity.totalMoves = this.totalMoves;
+        entity.gameOver = this.gameOver;
 
         entity = JSON.stringify(entity);
 
@@ -294,6 +373,9 @@ class My2048 {
         }
 
         this.hasMoved = false;
+
+        this.SetUndoCount();
+
         this.Show();
         this.ShowUI();
 
@@ -409,10 +491,14 @@ class My2048 {
         if (this.undoJson.length <= 0)
             return;
 
+        this.totalUndoUsed++;
+
         var info = JSON.parse(this.undoJson.shift());
         this.mainArr = info.mainArr;
         this.score = info.score;
         this.totalMoves = info.totalMoves;
+        this.gameOver = info.gameOver;
+        this.SetUndoCount();
         this.ShowUI();
     }
 
@@ -452,8 +538,6 @@ class My2048 {
         mainTbl.append(rowInfos);
 
         $("#" + this.scoreId).text(this.score);
-        $("#" + this.undoId).text(this.undoJson.length);
-        $("#" + this.totalMovesId).text(this.totalMoves);
     }
 
     /**
@@ -471,6 +555,10 @@ class My2048 {
      *
      */
     CheckEnd() {
+
+        if (this.gameOver == true)
+            return true;
+
         if (this.emptyCells.length > 0)
             return false;
 
@@ -492,6 +580,7 @@ class My2048 {
             }
         }
 
+        this.gameOver = true;
         return true;
 
     }
@@ -818,12 +907,6 @@ class My2048 {
      */
     CustomInitial() {
         this.mainArr =
-            //[
-            //    [65536, 32768, 16384, 8192],
-            //    [4096, 2048, 1024, 512],
-            //    [256, 128, 64, 32],
-            //    [16, 8, 4, 2]
-            //];
 
             [
                 [0, 2, 4, 2],
@@ -844,14 +927,80 @@ class My2048 {
     // #endregion
 }
 
-const count = 4;
+const count = 6;
 const initializeValue = 0;
 const initializeRandomCount = 4;
 const My2048Instance = new My2048(count, initializeValue, initializeRandomCount);
 
-$(document).ready(function () {
-    My2048Instance.CustomInitial();
-    My2048Instance.ShowUI();
 
+$(document).ready(function () {
+    //My2048Instance.CustomInitial();
+    My2048Instance.InitialGame();
+    My2048Instance.ShowUI();
 });
+
+/**
+     * function that assigned to Undo btn 
+*/
+function UndoClick() {
+    My2048Instance.Undo();
+}
+
+
+function ShowStatistics() {
+
+    var time = My2048Instance.GetTotalTime();
+    var years = time.years;
+    var days = time.days.toString().padStart(2, '0');
+    var hours = time.hours.toString().padStart(2, '0');
+    var minutes = time.minutes.toString().padStart(2, '0');
+    var seconds = time.seconds.toString().padStart(2, '0');
+    var milliSeconds = time.milliSeconds.toString().padStart(3, '0');
+
+    var effectiveMoves = My2048Instance.totalMoves + My2048Instance.totalUndoUsed;
+
+    $("#stTotalEffectiveMoves").text(effectiveMoves);
+    $("#stTotalMoves").text(My2048Instance.totalMoves);
+    $("#stRemaindUndo").text(My2048Instance.undoJson.length);
+    $("#stTotalTime").text(years + '-' + days + ' ' + hours + ':' + minutes + ':' + seconds + "." + milliSeconds);
+    $("#stUsedUndo").text(My2048Instance.totalUndoUsed);
+    $('#StatisticsModal').modal('show');
+}
+
+function ShowHelp()
+{
+		$('#HelpModal').modal('show');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

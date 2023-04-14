@@ -927,7 +927,7 @@ class My2048 {
     // #endregion
 }
 
-const count = 6;
+const count = 4;
 const initializeValue = 0;
 const initializeRandomCount = 4;
 const My2048Instance = new My2048(count, initializeValue, initializeRandomCount);
